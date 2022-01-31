@@ -1,0 +1,19 @@
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Business Name</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let inspection of inspections">
+            <td>{{inspection.id}}</td>
+            <td>{{inspection.business_name}}</td>
+            <td>
+                <button type="button" [routerLink]="['/inspection',inspection._id]">View</button>
+                <button type="button" (click)="deleteInspection(inspection._id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
