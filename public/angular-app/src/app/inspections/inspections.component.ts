@@ -8,7 +8,7 @@ export class Inspection{
   result !: string;
   address !: Address;
 }
-export class Address{
+class Address{
   city !: string;
   zip !: number;
   street !: string;

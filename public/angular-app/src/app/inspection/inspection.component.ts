@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import { Inspection } from '../inspections/inspections.component';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-inspection',
   templateUrl: './inspection.component.html',
@@ -10,7 +10,7 @@ import { Inspection } from '../inspections/inspections.component';
 })
 export class InspectionComponent implements OnInit {
   inspection !: Inspection;
-  constructor(private getData : ApiService, private actRoute : ActivatedRoute) { }
+  constructor(private getData : ApiService, private actRoute : ActivatedRoute, private r : Router) { }
   ngOnInit(): void {
     let insId = this.actRoute.snapshot.params['insId'];
     this.getData.getInspection(insId)
@@ -21,6 +21,17 @@ export class InspectionComponent implements OnInit {
     this.inspection = inspection;
   }
   private showError(){
-    console.log("Error Occured");
+    alert("Error Occured");
+  }
+  private showSuccess(){
+    alert("Inspetion Deleted Successfully");
+    setTimeout(()=>{
+      this.r.navigate(['inspections']);
+    },1000)
+  }
+  public deleteInspection(insId:string){
+    this.getData.deleteInspection(insId)
+    .then(this.showSuccess)
+    .catch(this.showError)
   }
 }
